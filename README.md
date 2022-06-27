@@ -5,7 +5,7 @@ It uses Springboot Rest APIs to tarnsfer data.
 
 <h3><i>Just run a JAR on any of your devices and share unlimited files</i></h3>
 
-<strong>Download the Jar from the target folder and all done</strong>
+<strong>Download the Jar and all done</strong>
 <h5 >->Steps to send files to system</h5>
 <ul>
   <li>Double click the jar </li>
