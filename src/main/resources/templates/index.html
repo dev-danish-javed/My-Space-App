@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Google icons link-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,0,-25" />
+    <!-- index css link -->
+    <link rel="stylesheet" href="./../static/css/index.css" th:href="@{/css/index.css}">
+    <!-- index js link -->
+    <script src="././../static/js/index.js" th:src="@{/js/index.js}"></script>
+    <title>My Space</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="./../static/images/favicon.ico"  th:href="@{/images/index.css}">
+</head>
+
+<body>
+
+<div class="app-container ">
+
+    <div id="closedAppContent" class="center-content d-none">
+        <h1 class="text-white-50"> App Closed</h1>
+    </div>
+    <div id="appContent" class="container">
+        <div class="row mb-3 pt-5">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="d-flex justify-content-center flex-column">
+                    <div class="d-flex flex-column text-center align-items-center">
+                        <img class="qr-code col-9 col-md-5 col-lg-3" id="qrCode" th:src="${@indexQrCodeUrl}"
+                             src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=Error&chco=e93f64"
+                             alt="Feature Not Available">
+
+                    </div>
+                    <a id="qrCodeLink" class="mt-5 text-center font-monospace fs-4 app-link px-2 text-truncate"
+                       th:href="${@indexUrl}" href="${@indexUrl}">
+                                <span th:text="${@indexUrl}">
+                                    192.168.1.14:8585/mySpace
+                                </span>
+
+                    </a>
+                    <div id="downloadFileSize" class="fs-4 text-center">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="close-button" onclick="shutDownApp()" aria-label="Close">x</button>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-lg-3 col-1"></div>
+            <div class="col-lg-6  col-10">
+                <div class="d-flex justify-content-center">
+                    <label id="fileInputLabel" for="fileInput"
+                           class=" app-button w-100 text-center fs-4 rounded text-truncate">
+                        Choose File
+                        <span class="material-symbols-outlined">
+                            folder_open
+                        </span>
+
+                    </label>
+                    <input type="file" onchange="inputFileChangeHandler()" class="mb-4" id="fileInput"
+                           title="uploadFile" placeholder="test" multiple="true">
+                </div>
+            </div>
+            <div class="col-lg-3 col-1"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-lg-3 col-1"></div>
+            <div class="col-lg-6  col-10">
+                <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+                    <button id="downloadLinkGeneratorButton" type="button" class=" w-100 app-button fs-4"
+                            onclick="generateDownloadDetails();" disabled>
+                        Generate QR!!
+                        <span class="material-symbols-outlined">
+                                qr_code_2
+                        </span>
+
+                    </button>
+                    <button id="uploadButton" type="button" class="app-button fs-4 w-100 " onclick="uploadFile();"
+                            disabled>
+                        Upload
+                        <span class="material-symbols-outlined">
+                            upload
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-3 col-1"></div>
+        </div>
+    </div>
+
+</div>
+<!-- Hidden input to contain base url --->
+<div class="d-none">
+    <input id="baseUrlInput" type="text" th:value="${@indexUrl}">
+</div>
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
