@@ -86,7 +86,7 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
 
     @Override
     public File getFile(String fileName) {
-        return new File(uploadLocation + fileName);
+        return new File(baseLocation+downloadSourceLocation + fileName);
     }
 
     @Override
