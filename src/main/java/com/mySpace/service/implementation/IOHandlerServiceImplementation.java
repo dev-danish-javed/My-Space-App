@@ -95,7 +95,7 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
         ZipOutputStream zipOut = new ZipOutputStream(outputStream);
         try {
             for (String fileName : fileNames) {
-                FileSystemResource resource = new FileSystemResource(uploadLocation + fileName);
+                FileSystemResource resource = new FileSystemResource(baseLocation+downloadSourceLocation + fileName);
                 ZipEntry zipEntry = new ZipEntry(resource.getFilename());
                 zipEntry.setSize(resource.contentLength());
                 zipOut.putNextEntry(zipEntry);
