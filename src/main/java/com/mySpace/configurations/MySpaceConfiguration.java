@@ -24,8 +24,9 @@ public class MySpaceConfiguration {
     public String indexQrCodeUrl(){
 
         String imgSize="300x300";
-
-        return "https://chart.googleapis.com/chart?chs="+imgSize+"&cht=qr&chl="+indexUrl()+"&chco=e93f64";
+        System.out.println("\n\nURL "+indexUrl());
+//        return "https://chart.googleapis.com/chart?chs="+imgSize+"&cht=qr&chl="+indexUrl()+"&chco=e93f64";
+        return "https://quickchart.io/qr?text="+indexUrl()+"&size=300";
     }
     @Bean
     public String indexUrl(){

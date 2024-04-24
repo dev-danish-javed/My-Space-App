@@ -111,7 +111,8 @@ const setDownloadDataToUI = (downloadData) => {
 
     if (!downloadData)
         return;
-    let qrLink = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=" + downloadData.downloadUrl +"&chco=e93f64";
+//    let qrLink = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=" + downloadData.downloadUrl +"&chco=e93f64";
+    let qrLink = "https://quickchart.io/qr?text=" + downloadData.downloadUrl + "&size=300";
     let qrCode = document.getElementById("qrCode");
     qrCode.setAttribute('src', qrLink);
     let qrCodeLink = document.getElementById('qrCodeLink');

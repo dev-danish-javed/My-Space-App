@@ -6,6 +6,7 @@ import com.mySpace.shared.constants.urlConstants.OperationStatusCode;
 import com.mySpace.shared.constants.urlConstants.actionPaths.IO_HandlerPaths;
 import com.mySpace.shared.utils.FileUtils;
 import com.mySpace.ui.model.response.DownloadLinkDataViewModel;
+import jakarta.servlet.ServletOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;

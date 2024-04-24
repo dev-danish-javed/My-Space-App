@@ -5,6 +5,7 @@ import com.mySpace.service.IOHandlerService;
 import com.mySpace.shared.constants.urlConstants.ControllerPaths;
 import com.mySpace.shared.constants.urlConstants.actionPaths.IO_HandlerPaths;
 import com.mySpace.ui.model.response.DownloadLinkDataViewModel;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -14,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

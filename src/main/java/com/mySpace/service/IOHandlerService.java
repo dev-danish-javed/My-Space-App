@@ -2,9 +2,10 @@ package com.mySpace.service;
 
 import com.mySpace.shared.constants.urlConstants.OperationStatusCode;
 import com.mySpace.ui.model.response.DownloadLinkDataViewModel;
+import jakarta.servlet.ServletOutputStream;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
+
 import java.io.File;
 import java.util.zip.ZipOutputStream;
 
