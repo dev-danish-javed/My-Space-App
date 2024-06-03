@@ -45,9 +45,8 @@ public class IOHandlerController {
     }
 
     @GetMapping(value = IO_HandlerPaths.DOWNLOAD_MULTIPLE, produces="application/zip")
-    public void zipDownload(@PathVariable String[] fileNames, HttpServletResponse response) throws IOException {
-        String downloadFileName = "My Space Download.zip";
-        response.addHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + downloadFileName + "\"");
+    public void zipDownload(@PathVariable String archiveName,@PathVariable String[] fileNames, HttpServletResponse response) throws IOException {
+        response.addHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + archiveName + "\"");
         ioService.getZip(fileNames,response.getOutputStream());
         response.setStatus(HttpServletResponse.SC_OK);
     }
@@ -66,12 +65,19 @@ public class IOHandlerController {
 
     @GetMapping(IO_HandlerPaths.DOWNLOAD_DETAILS)
     public DownloadLinkDataViewModel getDownloadDetails(@PathVariable String[] fileNames){
-        return ioService.generateDownloadDetails(fileNames);
+        return ioService.generateDownloadDetails(fileNames, "");
     }
 
     @PostMapping(IO_HandlerPaths.GENERATE_LINK)
     public DownloadLinkDataViewModel prepareDownloadDetails(@RequestBody MultipartFile[] files){
-        return ioService.generateDownloadDetail(files);
+        System.out.println("Oh");
+        return ioService.generateDownloadDetail(files, "");
+    }
+
+    @PostMapping(IO_HandlerPaths.GENERATE_LINK_V2)
+    public DownloadLinkDataViewModel prepareDownloadDetailsV2(@RequestBody MultipartFile[] files, @PathVariable String archiveName){
+        System.out.println("Yes");
+        return ioService.generateDownloadDetail(files, archiveName);
     }
 
     @GetMapping("/closeApp")

@@ -1,113 +1,112 @@
 <!doctype html>
-<html lang="en">
-
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Google icons link-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,0,-25" />
-    <!-- index css link -->
-    <link rel="stylesheet" href="./../static/css/index.css" th:href="@{/css/index.css}">
-    <!-- index js link -->
-    <script src="././../static/js/index.js" th:src="@{/js/index.js}"></script>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,500,0,-25"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/media/images/favico.png}">
     <title>My Space</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="./../static/images/favicon.ico"  th:href="@{/images/index.css}">
 </head>
-
 <body>
 
-<div class="app-container ">
-
-    <div id="closedAppContent" class="center-content d-none">
-        <h1 class="text-white-50"> App Closed</h1>
-    </div>
-    <div id="appContent" class="container">
-        <div class="row mb-3 pt-5">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="d-flex justify-content-center flex-column">
-                    <div class="d-flex flex-column text-center align-items-center">
-                        <img class="qr-code col-9 col-md-5 col-lg-3" id="qrCode" th:src="${@indexQrCodeUrl}"
-                             src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=Error&chco=e93f64"
-                             alt="Feature Not Available">
-
-                    </div>
-                    <a id="qrCodeLink" class="mt-5 text-center font-monospace fs-4 app-link px-2 text-truncate"
-                       th:href="${@indexUrl}" href="${@indexUrl}">
-                                <span th:text="${@indexUrl}">
-                                    192.168.1.14:8585/mySpace
-                                </span>
-
-                    </a>
-                    <div id="downloadFileSize" class="fs-4 text-center">
-
-                    </div>
+<div class="h-screen grid grid-cols-1 md:grid-cols-2">
+    <div class="mb-5 md:mb-0">
+        <div class="flex justify-center items-end h-full">
+            <div class="">
+                <div>
+                    <input type="text" id="link-container-input" class="block scale-0" th:value="${@indexUrl}">
                 </div>
-            </div>
-            <div class="col-1">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="close-button" onclick="shutDownApp()" aria-label="Close">x</button>
+                <div class="text-6xl sm:text-8xl font-righteous font-semibold drop-shadow-lg">
+                    My Space <i class=" text-4xl fa-regular fa-share-from-square"></i>
                 </div>
+                <div class="text-right">Sharing made simple...</div>
             </div>
-        </div>
-        <div class="row pt-5">
-            <div class="col-lg-3 col-1"></div>
-            <div class="col-lg-6  col-10">
-                <div class="d-flex justify-content-center">
-                    <label id="fileInputLabel" for="fileInput"
-                           class=" app-button w-100 text-center fs-4 rounded text-truncate">
-                        Choose File
-                        <span class="material-symbols-outlined">
-                            folder_open
-                        </span>
 
-                    </label>
-                    <input type="file" onchange="inputFileChangeHandler()" class="mb-4" id="fileInput"
-                           title="uploadFile" placeholder="test" multiple="true">
-                </div>
-            </div>
-            <div class="col-lg-3 col-1"></div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-lg-3 col-1"></div>
-            <div class="col-lg-6  col-10">
-                <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
-                    <button id="downloadLinkGeneratorButton" type="button" class=" w-100 app-button fs-4"
-                            onclick="generateDownloadDetails();" disabled>
-                        Generate QR!!
-                        <span class="material-symbols-outlined">
-                                qr_code_2
-                        </span>
-
-                    </button>
-                    <button id="uploadButton" type="button" class="app-button fs-4 w-100 " onclick="uploadFile();"
-                            disabled>
-                        Upload
-                        <span class="material-symbols-outlined">
-                            upload
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="col-lg-3 col-1"></div>
         </div>
     </div>
+    <div id="qr-section" class="md:qr-section md:row-span-2 flex flex-col justify-center items-center md:shadow-lg">
+        <div class="flex flex-col justify-center items-center mx-10 w-2/3 md:w-2/5 sm:w-3/5">
+            <img class="qr-code " id="qrCode" th:src="${@indexQrCodeUrl}"
+                 alt="QR Not available. Use link instead" src="th:src">
+            <button onclick="copyLink()" onmouseleave="copyLinkMouseExitHandler()" id="copyTextContainer" class="relative tooltip flex justify-between items-center gap-2 w-full mt-3 cursor-pointer border border-stone-500 px-4 py-1 rounded-full">
+                <span class="truncate">
+                    <span id="qrCodeLink" class=" text-lg" th:text="${@indexUrl}"></span>
+                </span>
+                <i class="fa-regular fa-copy"></i>
+                <span id="tooltip-text" class="tooltip-text block hidden md:inline-block">Copy Link</span>
+                <span id="toast" class="absolute w-full flex justify-center md:hidden">
+                    <span class="rounded-full px-2 py-1">Copied <i class="fa-solid fa-check"></i> </span>
+                </span>
+            </button>
+            <div>
+                <span id="downloadFileSize"></span>
+            </div>
+            <dialog id="loader" class="bg-transparent overflow-hidden drop-shadow-xl backdrop:bg-[#00000040] backdrop:backdrop-blur-sm">
+                <span class="loader"></span>
+            </dialog>
+        </div>
+    </div>
+    <div class="text-xl truncate flex flex-col justify-center gap-4 md:gap-6 px-6 md:px-12">
+        <label id="file-input-label" class="cursor-pointer flex w-full gap-2 justify-center items-center sm:h-14 block
+                        border border-2 py-2 rounded-full border-stone-600 transition duration-400 bg-[#00000000] active:scale-90 hover:drop-shadow-md hover:bg-[#00000018]" for="file-input">
+            <span>Choose File</span>
+            <i class="fa-regular fa-folder-closed"></i>
+        </label>
+        <input hidden="hidden" id="file-input" type="file" onchange="inputFileChangeHandler()" multiple="multiple">
+        <button id="btn-generate-qr" onclick="generateDownloadDetails();"
+                class="flex w-full gap-2 justify-center items-center pointer-events-none opacity-50 sm:h-14 block
+                        border border-2 py-2 rounded-full border-stone-600 transition duration-400 bg-[#00000000] active:scale-90 hover:drop-shadow-md hover:bg-[#00000018]">
+            <span id="qr-btn-txt">Generate QR</span>
+            <i class="fa-solid fa-qrcode"></i>
+        </button>
+        <button id="btn-upload" onclick="uploadFile();"
+                class="flex w-full gap-2 justify-center items-center pointer-events-none opacity-50 sm:h-14 block
+                        border border-2 py-2 rounded-full border-stone-600 transition duration-400 bg-[#00000000] active:scale-90 hover:drop-shadow-md hover:bg-[#00000018]">
+            <span id="upload-btn-txt">Upload</span>
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </button>
+        <button onclick="showModal()"
+                class="flex w-full gap-2 justify-center items-center bg-[#00000000] active:scale-90 sm:h-14 block
+                            border border-2 py-2 rounded-full transition duration-300 border-stone-600
+                            hover:border-red-600 hover:text-red-600  hover:drop-shadow-md hover:bg-[#ff00001a]">
+            <span>Close App</span>
+            <i class="fa-regular fa-circle-xmark"></i>
+        </button>
+        <dialog id="shutdownModal" class=" text-wrap border border-black p-3 shadow-xl rounded-lg bg-[#f6fdecd6] backdrop:bg-[#00000040] backdrop:backdrop-blur-sm">
+            <div>Are you sure you want to close the application ? </div>
+            <div class="mt-8 flex justify-end">
+                <button onclick="closeModal()" class="border underline underline-offset-2 decoration-stone-500">
+                    <span class="text-stone-600 hover:drop-shadow hover:text-stone-800">Return</span>
+                </button>
+                <button onclick="shutDownApp()" class="ms-5 border border-red-600 text-red-600 hover:bg-red-100 px-4 py-1 rounded-lg">Exit</button>
+            </div>
+        </dialog>
 
-</div>
-<!-- Hidden input to contain base url --->
-<div class="d-none">
-    <input id="baseUrlInput" type="text" th:value="${@indexUrl}">
-</div>
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
 
+        <dialog id="archiveFileNameModal" class="md:max-w-1/2 text-wrap border border-black p-3 shadow-xl rounded-lg bg-[#f6fdecd6] backdrop:bg-[#00000040] backdrop:backdrop-blur-sm">
+            <div>
+                <p class="text-2xl text-center mb-4 border-b-2 border-stone-600">Download Archive <i class="fa-regular fa-file-zipper"></i></p>
+                <p>You have selected multiple files. A zip file with the data will be downloaded.</p>
+                <p class="mt-5"><span class="me-4">Enter Archive Name :</span><input id="archiveFileNameInput" type="text" class="bg-transparent border border-stone-600 px-3 py-1 rounded-lg"></p>
+            </div>
+            <div></div>
+            <div class="mt-8 flex justify-end">
+                <button onclick="closeModal(); archiveFileNameInput.value='';" class="border underline underline-offset-2 decoration-stone-500">
+                    <span class="text-stone-600 hover:drop-shadow hover:text-stone-800">Cancel</span>
+                </button>
+                <button onclick="generateDownloadDetails()" class="ms-5 border px-4 py-1 rounded-lg border-stone-600 transition duration-400 bg-[#00000000] active:scale-90 hover:drop-shadow-md hover:bg-[#00000018]">Done</button>
+            </div>
+        </dialog>
+    </div>
+</div>
+
+<script th:src="@{/js/index.js}"></script>
+<script>
+<!--    setTimeout(()=>{window.location.href = window.location.href}, 2000);-->
+</script>
 </body>
-
 </html>

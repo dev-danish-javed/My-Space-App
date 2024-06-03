@@ -39,7 +39,9 @@ public class MySpaceApplication {
 			String url="http://"+ip+":8585/mySpace";
 			try {
 				Runtime runtime=Runtime.getRuntime();
-				runtime.exec("rundll32 url.dll,FileProtocolHandler "+url );
+				if(false)
+					runtime.exec("rundll32 url.dll,FileProtocolHandler "+url );
+
 			} catch (IOException ioException) {
 				System.out.println("some issue");
 			}
@@ -61,7 +63,8 @@ public class MySpaceApplication {
 
 		String url="http://"+ip+":"+portNumber+contextPath;
 		try {
-			runtime.exec("rundll32 url.dll,FileProtocolHandler "+url );
+			if(false)
+				runtime.exec("rundll32 url.dll,FileProtocolHandler "+url );
 		} catch (IOException e) {
 			System.out.println("some issue");
 		}

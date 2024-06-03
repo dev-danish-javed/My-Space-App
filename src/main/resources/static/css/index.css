@@ -1,93 +1,108 @@
-body {
-     height: 100vh;
-     max-height: 100vh !important;
-     color: var(--app-accent-color);
-     --app-accent-color: rgb(22, 192, 155);
-     --inverted-accent-color:rgb(233, 63, 100);
-    background-color: #000a0a;
-}
-#qrCodeLink{
-     padding-top:0.2rem;
-}
-.qr-code {
-     filter: invert(1);
-     box-shadow: 1px 1px 30px var(--inverted-accent-color); /* to match color after filters */
-     border-radius: 8%;
-}
-.qr-container {
-     z-index: 1;
-}
-.app-link {
-     text-decoration: none;
-     color: inherit;
-}
-.app-link:hover {
-     text-decoration: none;
-     color: inherit;
-}
-.center-content {
-     height: 100% !important;
-     width: 100%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-}
-.app-button {
-     background-color: transparent;
-     border: none;
-     padding: 2%;
-     color:inherit;
-     box-shadow: 1px 1px 10px  var(--app-accent-color);
-}
-.app-button:hover:active {
-     color: white;
-     text-shadow: 2px 2px 10px white;
-     transform: scale(1.1);
-}
-.app-button:disabled {
-     color: grey;
-     box-shadow: 1px 1px 10px #3d3030;
-}
-.app-button:disabled:hover {
-     color: grey;
-     box-shadow: 1px 1px 10px #6e2929;
-}
-input[type="file"] {
-     display: none;
-}
-.custom-file-input {
-     border: 1px solid #ccc;
-     display: inline-block;
-     padding: 6px 12px;
-     cursor: pointer;
-}
-.white-space-nowrap {
-     white-space: nowrap;
-}
-.text-over-flow-ellipsis {
-     text-overflow: ellipsis;
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Righteous&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+body{
+    font-family: "Ubuntu", sans-serif;
+    background-color: #FDFFE6;
+    background-image: linear-gradient(to right top, #b6ffed, #c6ffe2, #d8ffd9, #eaffd3, #fcffd1);
 }
 
-.app-container {
-     min-width: 100vw !important;
-     min-height: 100vh;
-     height: 100vh;
+.qr-section{
+    background-image: linear-gradient(to left top,#b6ffed80,#c6ffe280,#d6ffd880,#eaffd380,#fcffd180);
+}
+.font-merienda {
+  font-family: "Merienda", cursive;
+}
+.font-righteous{
+  font-family: "Righteous", sans-serif;
+}
+.font-ubuntu {
+  font-family: "Ubuntu", sans-serif;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer; /* Optional: makes the cursor change to a pointer on hover */
 }
 
-.close-button {
-     border-radius: 40%;
-     background-color: transparent;
-     color: grey;
-     border: none;
-     font-size: xx-large;
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background: #ffffffcb;
+  border : 2px solid #00000080;
+  text-align: center;
+  border-radius: 6px;
+  padding: 3px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-.close-button:hover {
-     color: red;
+/* Position for mobile devices */
+@media (max-width: 768px) {
+  .tooltip-text {
+    background: #ffffff;
+    transform: translateX(-50%) translateY(-5.5rem);
+  }
 }
-.material-symbols-outlined{
-     vertical-align: sub;
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
-.glowing-text{
-     text-shadow: 1px 1px 5px lightgoldenrodyellow !important;
-     color: white !important;
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 6rem;
+  aspect-ratio: 1;
+  display: grid;
+  border: .5rem solid #0000;
+  border-radius: 50%;
+  border-color: #f4ffab #0000;
+  animation: l16 1s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  margin: 1rem;
+  border: inherit;
+  border-radius: 50%;
+}
+.loader::before {
+  border-color: #d6ff4f #0000;
+  animation: inherit;
+  animation-duration: .5s;
+  animation-direction: reverse;
+}
+.loader::after {
+  margin: 2rem;
+}
+@keyframes l16 {
+  100%{transform: rotate(1turn)}
+}
+#toast{
+    opacity : 0;
+    top: -3rem;
+}
+#toast > span{
+    background: #000000cf;
+    color :  white;
+    border : .1rem solid black;
+    filter : drop-shadow(0 0 .5rem gray);
+}
+#toast.show {
+    animation: shift-up 2s 1 alternate ;
+}
+@keyframes shift-up{
+    from{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to{
+        opacity:0;
+        transform: translateY(-2rem);
+    }
 }

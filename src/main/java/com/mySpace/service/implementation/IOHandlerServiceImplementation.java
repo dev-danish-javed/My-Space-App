@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.text.DecimalFormat;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -31,6 +33,9 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
     @Autowired
     private FileUtils fileUtils;
 
+    @Autowired
+    Map<String, DownloadLinkDataViewModel> downloadDataBean;
+
     @Value("${upload-location}")
     String uploadLocation;
 
@@ -38,15 +43,21 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
     String downloadSourceLocation;
     @Value("${base-location}")
     String baseLocation;
+
     @Override
-    public DownloadLinkDataViewModel generateDownloadDetails(String[] fileNames) {
+    public DownloadLinkDataViewModel getDownloadData(String id) {
+        return downloadDataMap.get(id);
+    }
+
+    @Override
+    public DownloadLinkDataViewModel generateDownloadDetails(String[] fileNames, String archiveName) {
         String hostName = "";
         double fileLength = 0;
         String downloadUrl = "";
         String unit = "b";
         String downloadFileSize = "";
         String ip = (String) applicationContext.getBean("indexUrl");
-        String fileNameParameterForRequest = "";
+        StringBuilder fileNameParameterForRequest = new StringBuilder();
 
 
         for (String fileName : fileNames) {
@@ -54,8 +65,8 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
             try {
                 fileLength += resource.contentLength();
                 String path=resource.getPath();
-                fileNameParameterForRequest += fileNameParameterForRequest == "" ? fileName : "," + fileName;
-            } catch (IOException e) {
+                fileNameParameterForRequest.append(fileNameParameterForRequest.toString().isEmpty() ? fileName : "," + fileName);
+            } catch (IOException ignored) {
 
             }
         }
@@ -75,14 +86,20 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
         downloadFileSize = decimalFormat.format(fileLength) + " " + unit;
         String downloadFileName = "";
         if (fileNames.length > 1) {
-            downloadUrl = ip + ControllerPaths.IO_HANDLER_PATH + IO_HandlerPaths.DOWNLOAD_MULTIPLE.replaceAll("\\{fileNames\\}", fileNameParameterForRequest);
+            downloadUrl = ip + ControllerPaths.IO_HANDLER_PATH + IO_HandlerPaths.DOWNLOAD_MULTIPLE
+                    .replaceAll("\\{archiveName\\}", archiveName)
+                    .replaceAll("\\{fileNames\\}", fileNameParameterForRequest.toString());
 
-            downloadFileName = "My Space Download.zip";
+            downloadFileName = archiveName.isEmpty() ? "My Space Download.zip" : archiveName;
         } else {
             downloadUrl = ip + ControllerPaths.IO_HANDLER_PATH + IO_HandlerPaths.DOWNLOAD.replaceAll("\\{fileName\\}", fileNames[0]);
             downloadFileName = fileNames[0];
         }
-        return new DownloadLinkDataViewModel(downloadUrl, downloadFileSize, downloadFileName);
+        String downloadId = generateDownloadId();
+        String qrUrl = ip + ControllerPaths.DOWNLOAD + "/" + downloadId;
+        DownloadLinkDataViewModel downloadData = new DownloadLinkDataViewModel(downloadUrl, downloadFileSize, downloadFileName, qrUrl);
+        downloadDataBean.put(downloadId, downloadData);
+        return downloadData;
     }
 
     @Override
@@ -146,17 +163,39 @@ public class IOHandlerServiceImplementation implements IOHandlerService {
     }
 
     @Override
-    public DownloadLinkDataViewModel generateDownloadDetail(MultipartFile[] files) {
+    public DownloadLinkDataViewModel generateDownloadDetail(MultipartFile[] files, String archiveName) {
 
         OperationStatusCode status = saveFiles(files, downloadSourceLocation);
         String[] fileNames = new String[files.length];
         if (status == OperationStatusCode.SUCESS) {
             for (int i = 0; i < files.length; i++)
                 fileNames[i] = files[i].getOriginalFilename();
-            return generateDownloadDetails(fileNames);
+            return generateDownloadDetails(fileNames, archiveName);
         } else
             return null;
     }
 
+    public static String generateDownloadId() {
+        // Define the characters that can be used in the random string
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        // Create a SecureRandom object for generating random numbers
+        SecureRandom random = new SecureRandom();
+
+        // Create a StringBuilder to store the random string
+        StringBuilder sb = new StringBuilder();
+
+        // Generate 5 random characters
+        for (int i = 0; i < 5; i++) {
+            // Get a random index within the range of characters string
+            int randomIndex = random.nextInt(characters.length());
+
+            // Append the character at the random index to the StringBuilder
+            sb.append(characters.charAt(randomIndex));
+        }
+
+        // Convert the StringBuilder to a String and return it
+        return sb.toString();
+    }
 
 }

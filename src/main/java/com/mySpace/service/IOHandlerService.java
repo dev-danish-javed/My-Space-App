@@ -7,13 +7,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipOutputStream;
 
 public interface IOHandlerService {
-    DownloadLinkDataViewModel generateDownloadDetails(String[] fileNames);
+    Map<String, DownloadLinkDataViewModel> downloadDataMap = new HashMap<>();
+    DownloadLinkDataViewModel getDownloadData(String id);
+    DownloadLinkDataViewModel generateDownloadDetails(String[] fileNames, String archiveName);
     File getFile(String fileName);
     ZipOutputStream getZip(String[] fileNames, ServletOutputStream outputStream);
     OperationStatusCode saveFiles(MultipartFile[] files, String location);
     OperationStatusCode saveFile(MultipartFile file,String location);
-    DownloadLinkDataViewModel generateDownloadDetail(MultipartFile[] files);
+    DownloadLinkDataViewModel generateDownloadDetail(MultipartFile[] files, String archiveName);
 }

@@ -4,14 +4,16 @@ public class DownloadLinkDataViewModel {
     private String downloadUrl;
     private String downloadSize;
     private String downloadFileName;
+    private String qrUrl;
 
     public DownloadLinkDataViewModel() {
     }
 
-    public DownloadLinkDataViewModel(String downloadUrl, String downloadSize, String downloadFileName) {
+    public DownloadLinkDataViewModel(String downloadUrl, String downloadSize, String downloadFileName, String downloadId) {
         this.downloadUrl = downloadUrl;
         this.downloadSize = downloadSize;
         this.downloadFileName = downloadFileName;
+        this.qrUrl = downloadId;
     }
 
     public String getDownloadUrl() {
@@ -36,5 +38,13 @@ public class DownloadLinkDataViewModel {
 
     public void setDownloadFileName(String downloadFileName) {
         this.downloadFileName = downloadFileName;
+    }
+
+    public String getQrUrl() {
+        return qrUrl;
+    }
+
+    public void setQrUrl(String qrUrl) {
+        this.qrUrl = qrUrl;
     }
 }
