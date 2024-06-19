@@ -2,12 +2,19 @@
 
 body{
     font-family: "Ubuntu", sans-serif;
-    background-color: #FDFFE6;
-    background-image: linear-gradient(to right top, #b6ffed, #c6ffe2, #d8ffd9, #eaffd3, #fcffd1);
+    background: #f2ffd7;
+    background-image: linear-gradient(to right, rgb(228, 255, 206) , rgb(255, 255, 204));
+}
+#bubbles-container>div{
+  background-color: rgba(226, 250, 208, 0.531);
+  background-image: linear-gradient(to right, rgb(228, 255, 206, 0.5) , rgb(255, 255, 204, 0.5));
 }
 
 .qr-section{
     background-image: linear-gradient(to left top,#b6ffed80,#c6ffe280,#d6ffd880,#eaffd380,#fcffd180);
+}
+img{
+mix-blend-mode: hard-light;
 }
 .font-merienda {
   font-family: "Merienda", cursive;

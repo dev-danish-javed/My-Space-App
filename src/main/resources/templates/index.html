@@ -11,9 +11,9 @@
     <link rel="icon" type="image/x-icon" th:href="@{/media/images/favico.png}">
     <title>My Space</title>
 </head>
-<body>
+<body class="h-screen w-screen">
 
-<div class="h-screen grid grid-cols-1 md:grid-cols-2">
+<div class="h-screen w-screen grid grid-cols-1 lg:grid-cols-2  z-10 absolute bg-transparent">
     <div class="mb-5 md:mb-0">
         <div class="flex justify-center items-end h-full">
             <div class="">
@@ -28,8 +28,8 @@
 
         </div>
     </div>
-    <div id="qr-section" class="md:qr-section md:row-span-2 flex flex-col justify-center items-center md:shadow-lg">
-        <div class="flex flex-col justify-center items-center mx-10 w-2/3 md:w-2/5 sm:w-3/5">
+    <div id="qr-section" class="lg:qr-section lg:row-span-2 flex justify-center items-center lg:shadow-lg">
+        <div class="flex flex-col justify-center items-center w-2/3 md:w-2/5 sm:w-3/5">
             <img class="qr-code " id="qrCode" th:src="${@indexQrCodeUrl}"
                  alt="QR Not available. Use link instead" src="th:src">
             <button onclick="copyLink()" onmouseleave="copyLinkMouseExitHandler()" id="copyTextContainer" class="relative tooltip flex justify-between items-center gap-2 w-full mt-3 cursor-pointer border border-stone-500 px-4 py-1 rounded-full">
@@ -106,7 +106,7 @@
 
 <script th:src="@{/js/index.js}"></script>
 <script>
-<!--    setTimeout(()=>{window.location.href = window.location.href}, 2000);-->
+//  setTimeout(()=>{window.location.href = window.location.href}, 1000);
 </script>
 </body>
 </html>
